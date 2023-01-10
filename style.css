@@ -10,9 +10,15 @@
 }
 
 @font-face {
-    font-family: "linja sike";
-    src: url("linja-sike-5.otf");
+  font-family: "linja sike";
+  src: url("linja-sike-5.otf");
 }
+
+@font-face {
+    font-family: "nasin nanpa";
+    src: url("nasin-nanpa-2.5.1-lasina-kin.otf");
+}
+
 
 html {
   padding: 0;
@@ -57,6 +63,8 @@ a:hover {
   font-family: "linja sike";
   margin: 0;
 }
+
+
 
 .header, .footer {
   padding: 50px 30px 30px;
@@ -136,6 +144,12 @@ a:hover {
   display: none;
 }
 
+
+.epiku2 {
+  font-family: "nasin nanpa";
+  font-size: 3.2em !important;
+  margin-bottom: -0.1em !important;
+}
 
 
 @media (max-width: 720px)

@@ -266,10 +266,27 @@ async function predict() {
 
   else {
     for (let i = 0; i < maxPredictions; i++) {
-        var classPrediction =
-            prediction[i].className + ": " + (prediction[i].probability * 100).toFixed(1) + "%";
+        var thename = prediction[i].className
 
-        labelContainer.childNodes[i].innerHTML = '<p class="tp">' + prediction[i].className + '</p><p>' + classPrediction + '</p>'
+        if (thename == "epiku2") {
+          console.log("A")
+          thename = "epiku2"
+        }
+
+
+
+        var classPrediction =
+            thename + ": " + (prediction[i].probability * 100).toFixed(1) + "%";
+
+
+        if (prediction[i].className == "epiku2") {
+          labelContainer.childNodes[i].innerHTML = '<p class="tp epiku2">󱦃</p><p>' + classPrediction + '</p>'
+        }
+        else {
+          labelContainer.childNodes[i].innerHTML = '<p class="tp">' + thename + '</p><p>' + classPrediction + '</p>'
+
+        }
+
 
     }
   }
