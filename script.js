@@ -3,7 +3,6 @@
 
 // DRAWING STUFF.
 
-var empty = true
 
 const canvas = document.getElementById("canvas")
 
@@ -31,7 +30,6 @@ ctx.strokeStyle = "#000"
 let draw = false
 
 function clearcanvas(){
-  setempty()
   ctx.fillStyle = "#fff"
   // ctx.beginPath()
   ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -44,26 +42,21 @@ clearBtn.addEventListener("click", clearcanvas)
 
 function mouseinarea(e) {
   var value = e.clientX >= (window.pageXOffset + rect.left) && e.clientX <= (window.pageXOffset + rect.right) && e.clientY >= (window.pageYOffset + rect.top) && e.clientY <= (window.pageYOffset + rect.bottom)
-  // console.log(value)
 
   return value
 
 }
 
 
-window.addEventListener("mousedown", (e) => {
-  draw = true;
-  if ( mouseinarea(e) ){ empty = false }
-
-});
-
-window.addEventListener("mouseup", (e) => {draw = false; })
-window.addEventListener("touchstart", (e) => {draw = true; empty = false; prevX = null; prevY = null; })
+window.addEventListener("mousedown", (e) => draw = true );
+window.addEventListener("mouseup", (e) => draw = false );
+window.addEventListener("touchstart", (e) => {draw = true; ; prevX = null; prevY = null; })
 window.addEventListener("touchend", (e) => {draw = false; prevX = null; prevY = null;})
 
 
 window.addEventListener("mousemove", (e) => {
     if (!mouseinarea(e)){ return }
+
 
     bodyRect = document.body.getBoundingClientRect(),
     rect = canvas.getBoundingClientRect(),
@@ -88,9 +81,34 @@ window.addEventListener("mousemove", (e) => {
     prevY = currentY
 
     predict()
+    save()
 })
 
-addEventListener("resize", (event) => {
+var drawing;
+
+function save(){
+  console.log("save")
+  drawing = canvas.toDataURL()
+}
+
+var doit;
+
+
+function resizedw(){
+  if (drawing != null) {
+    var image = new Image()
+    image.src = drawing
+    image.onload = function(){
+      ctx.drawImage(image, 0, 0, canvas.width, canvas.height)
+
+    }
+  }
+}
+
+
+window.addEventListener("resize", (event) => {
+  console.log("A.")
+
   bodyRect = document.body.getBoundingClientRect(),
       rect = canvas.getBoundingClientRect(),
       offset = rect.top - bodyRect.top;
@@ -100,8 +118,12 @@ addEventListener("resize", (event) => {
 
   ctx.lineWidth = 10
   ctx.strokeStyle = "#000"
-  clearcanvas();
-});
+  // clearcanvas();
+  clearTimeout(doit);
+  doit = setTimeout(resizedw, 100);
+
+}, true);
+
 
 
 window.addEventListener("touchmove", (e) => {
@@ -128,6 +150,9 @@ window.addEventListener("touchmove", (e) => {
 
     prevX = currentX
     prevY = currentY
+
+    predict()
+
 })
 
 
@@ -146,7 +171,6 @@ document.onload = init()
 // Load the image model and setup the webcam
 async function init() {
     clearcanvas()
-    // console.log("init")
     const modelURL = URL + "model.json";
     const metadataURL = URL + "metadata.json";
 
@@ -156,11 +180,9 @@ async function init() {
     // Note: the pose library adds "tmImage" object to your window (window.tmImage)
 
     model = await tmImage.load(modelURL, metadataURL);
-    // console.log(model.getTotalClasses());
 
     maxPredictions = 9 //model.getTotalClasses();
 
-    // console.log(model)
 
     //
     // window.requestAnimationFrame(loop);
@@ -174,6 +196,8 @@ async function init() {
     // // for (let i = 0; i < maxPredictions; i++) { // and class labels
     // //     labelContainer.appendChild(document.createElement("div"));
     // // }
+
+    predict();
 }
 //
 // async function loop() {
@@ -189,24 +213,24 @@ function convertCanvasToImage() {
   return image;
 }
 
-function setempty(){
-  empty = true
-  // console.log(labelContainer.childNodes)
-  if (labelContainer.childNodes.length <= 1) return;
 
-  for (var i = 0; i < 9; i++) {
-    labelContainer.childNodes[i].innerHTML = ""
-  }
+function isCanvasBlank() {
+  return !canvas.getContext('2d')
+    .getImageData(0, 0, canvas.width, canvas.height).data
+    .some(channel => channel !== 0);
 }
 
 async function predict() {
 
+
   var prediction = await model.predictTopK( canvas );
 
-  if (empty) {
+  if (isCanvasBlank()) {
     for (var i = 0; i < maxPredictions; i++) {
       labelContainer.childNodes[i].innerHTML = ""
     }
+
+    console.log("blank")
   }
 
   for (let i = 0; i < maxPredictions; i++) {
@@ -220,3 +244,12 @@ async function predict() {
 
 
 }
+
+
+
+
+
+//
+//
+// document.getElementById("toenglish").onclick = toenglish()
+// document.getElementById("totp").onclick = totp()

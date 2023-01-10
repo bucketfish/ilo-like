@@ -84,6 +84,9 @@ a:hover {
   border: 5px solid var(--purple);
   border-radius: 10px;
   /* margin-top: -50px; */
+
+  touch-action: none;
+  background-color: white;
 }
 
 #draw .nav {
