@@ -23,7 +23,7 @@ const ctx = canvas.getContext("2d")
 let prevX = null
 let prevY = null
 
-ctx.lineWidth = 7
+ctx.lineWidth = 5
 ctx.strokeStyle = "#000"
 
 let draw = false
@@ -125,7 +125,7 @@ window.addEventListener("resize", (event) => {
   canvas.height = canvas.offsetHeight;
   canvas.width = canvas.offsetWidth;
 
-  ctx.lineWidth = 10
+  ctx.lineWidth = 5
   ctx.strokeStyle = "#000"
   // clearcanvas();
   clearTimeout(doit);
