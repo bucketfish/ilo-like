@@ -10,8 +10,8 @@
 }
 
 @font-face {
-    font-family: "linja sike";
-    src: url("linja-sike-5.otf");
+    font-family: "linja suwi";
+    src: url("linjasuwi.otf");
 }
 
 html {
@@ -53,7 +53,7 @@ a:hover {
 }
 
 .tp {
-  font-family: "linja sike";
+  font-family: "linja suwi";
   margin: 0;
 }
 
@@ -118,7 +118,7 @@ a:hover {
 }
 
 #label-container div .tp {
-  font-size: 3em;
+  font-size: 4em;
 }
 
 #label-container div p {
