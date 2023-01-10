@@ -124,3 +124,22 @@ a:hover {
 #label-container div p {
   margin: 0;
 }
+
+
+
+
+@media (max-width: 720px)
+{
+  .contain {
+    flex-flow: column;
+  }
+
+  #label-container {
+    width: 100%;
+  }
+
+  #canvas{
+    width: 80%;
+  }
+
+}
