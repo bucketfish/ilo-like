@@ -13,8 +13,16 @@
   </head>
   <body>
 
-      <div class="header">
+      <div class="header tokipona">
         <h1>ilo sona Like</h1>
+        <a onclick="toenglish()">view in English</a>
+        <p>ilo ni li lukin li alasa sona e nimi lon sitelen sina. taso ona li lukin ike lon tenpo. ni la, nimi pi ilo ni li 'Like'. ona li lukin ike.</p>
+        <p>o sitelen pona!</p>
+      </div>
+
+      <div class="header english hide">
+        <h1>ilo sona Like</h1>
+        <a onclick="totp()">o kepeken toki pona</a>
         <p>ilo ni li lukin li alasa sona e nimi lon sitelen sina. taso ona li lukin ike lon tenpo. ni la, nimi pi ilo ni li 'Like'. ona li lukin ike.</p>
         <p>o sitelen pona!</p>
       </div>
@@ -26,7 +34,8 @@
 
             <canvas id="canvas"></canvas>
             <div class="nav">
-              <p>o sitelen</p>
+              <p class="tokipona">o sitelen</p><p class="english hide">draw here</p>
+
               <button class="clear">o weka e sitelen</button>
             </div>
           </div>
