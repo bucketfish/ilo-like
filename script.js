@@ -3,14 +3,13 @@
 
 // DRAWING STUFF.
 
+var isblank = true
 
 const canvas = document.getElementById("canvas")
 
-let model, webcam, maxPredictions;
+let model, maxPredictions;
 
 let labelContainer = document.getElementById("label-container");
-
-
 
 var bodyRect = document.body.getBoundingClientRect(),
     rect = canvas.getBoundingClientRect(),
@@ -35,6 +34,8 @@ function clearcanvas(){
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   // ctx.stroke()
   // ctx.strokeStyle = "#000"
+  isblank = true
+  predict()
 }
 
 let clearBtn = document.querySelector(".clear")
@@ -42,6 +43,14 @@ clearBtn.addEventListener("click", clearcanvas)
 
 function mouseinarea(e) {
   var value = e.clientX >= (window.pageXOffset + rect.left) && e.clientX <= (window.pageXOffset + rect.right) && e.clientY >= (window.pageYOffset + rect.top) && e.clientY <= (window.pageYOffset + rect.bottom)
+
+  return value
+
+}
+
+
+function touchinarea(e) {
+  var value = e.touches[0].clientX >= (rect.left) && e.touches[0].clientX <= (rect.right) && e.touches[0].clientY >= (rect.top) && e.touches[0].clientY <= ( rect.bottom)
 
   return value
 
@@ -56,6 +65,8 @@ window.addEventListener("touchend", (e) => {draw = false; prevX = null; prevY = 
 
 window.addEventListener("mousemove", (e) => {
     if (!mouseinarea(e)){ return }
+
+    isblank = false
 
 
     bodyRect = document.body.getBoundingClientRect(),
@@ -87,7 +98,6 @@ window.addEventListener("mousemove", (e) => {
 var drawing;
 
 function save(){
-  console.log("save")
   drawing = canvas.toDataURL()
 }
 
@@ -107,7 +117,6 @@ function resizedw(){
 
 
 window.addEventListener("resize", (event) => {
-  console.log("A.")
 
   bodyRect = document.body.getBoundingClientRect(),
       rect = canvas.getBoundingClientRect(),
@@ -127,7 +136,10 @@ window.addEventListener("resize", (event) => {
 
 
 window.addEventListener("touchmove", (e) => {
-    // if (!mouseinarea(e)){ return }
+
+    if (!touchinarea(e)){ return }
+
+    isblank = false
 
     bodyRect = document.body.getBoundingClientRect(),
     rect = canvas.getBoundingClientRect(),
@@ -197,6 +209,7 @@ async function init() {
     // //     labelContainer.appendChild(document.createElement("div"));
     // // }
 
+    isblank = isCanvasBlank()
     predict();
 }
 //
@@ -214,42 +227,53 @@ function convertCanvasToImage() {
 }
 
 
+const blank = document.createElement('canvas');
+blank.width = canvas.width;
+blank.height = canvas.height;
+blank.getContext('2d').fillStyle = "#fff"
+// ctx.beginPath()
+blank.getContext('2d').fillRect(0, 0, canvas.width, canvas.height);
+
+
+
 function isCanvasBlank() {
-  return !canvas.getContext('2d')
-    .getImageData(0, 0, canvas.width, canvas.height).data
-    .some(channel => channel !== 0);
+  console.log("A.")
+  // return !canvas.getContext('2d')
+  //   .getImageData(0, 0, canvas.width, canvas.height).data
+  //   .some(channel => channel !== 0);
+
+    // getting image data of canvas
+    isblank = canvas.toDataURL() === blank.toDataURL()
+
+    return isblank;
+
 }
+
+
+
 
 async function predict() {
 
 
   var prediction = await model.predictTopK( canvas );
 
-  if (isCanvasBlank()) {
+  if (isblank) {
+    console.log("A.")
     for (var i = 0; i < maxPredictions; i++) {
       labelContainer.childNodes[i].innerHTML = ""
     }
-
-    console.log("blank")
   }
 
-  for (let i = 0; i < maxPredictions; i++) {
-      var classPrediction =
-          prediction[i].className + ": " + (prediction[i].probability * 100).toFixed(1) + "%";
+  else {
+    for (let i = 0; i < maxPredictions; i++) {
+        var classPrediction =
+            prediction[i].className + ": " + (prediction[i].probability * 100).toFixed(1) + "%";
 
-      labelContainer.childNodes[i].innerHTML = '<p class="tp">' + prediction[i].className + '</p><p>' + classPrediction + '</p>'
+        labelContainer.childNodes[i].innerHTML = '<p class="tp">' + prediction[i].className + '</p><p>' + classPrediction + '</p>'
 
+    }
   }
 
 
 
 }
-
-
-
-
-
-//
-//
-// document.getElementById("toenglish").onclick = toenglish()
-// document.getElementById("totp").onclick = totp()
