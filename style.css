@@ -129,6 +129,12 @@ a:hover {
 
 
 
+.hide {
+  display: none;
+}
+
+
+
 @media (max-width: 720px)
 {
   .contain {
@@ -143,9 +149,4 @@ a:hover {
     width: 80%;
   }
 
-}
-
-
-.hide {
-  display: none;
 }

@@ -13,6 +13,38 @@
   </head>
   <body>
 
+    <script type="text/javascript">
+
+      function toenglish(){
+        console.log("AAA")
+        var hides = document.getElementsByClassName("tokipona")
+        for (var i = 0; i < hides.length; i ++){
+            hides[i].classList.add("hide")
+        }
+
+        var shows = document.getElementsByClassName("english")
+        for (var i = 0; i < shows.length; i ++){
+            shows[i].classList.remove("hide")
+        }
+
+      }
+
+      function totp(){
+
+        var hides = document.getElementsByClassName("english")
+        for (var i = 0; i < hides.length; i ++){
+            hides[i].classList.add("hide")
+        }
+
+        var shows = document.getElementsByClassName("tokipona")
+        for (var i = 0; i < shows.length; i ++){
+            shows[i].classList.remove("hide")
+        }
+
+      }
+
+    </script>
+
       <div class="header tokipona">
         <h1>ilo sona Like</h1>
         <a onclick="toenglish()">view in English</a>
@@ -23,8 +55,8 @@
       <div class="header english hide">
         <h1>ilo sona Like</h1>
         <a onclick="totp()">o kepeken toki pona</a>
-        <p>ilo ni li lukin li alasa sona e nimi lon sitelen sina. taso ona li lukin ike lon tenpo. ni la, nimi pi ilo ni li 'Like'. ona li lukin ike.</p>
-        <p>o sitelen pona!</p>
+        <p>this website will try to identify the sitelen pona glyph that you write. but it's not very good, so it's called 'ilo Like'. this ilo li lukin ike.</p>
+        <p>have fun!</p>
       </div>
 
 
@@ -36,7 +68,7 @@
             <div class="nav">
               <p class="tokipona">o sitelen</p><p class="english hide">draw here</p>
 
-              <button class="clear">o weka e sitelen</button>
+              <button class="clear"><span class="tokipona">o weka e sitelen</span><span class="english hide">clear canvas</span></button>
             </div>
           </div>
 
@@ -45,13 +77,20 @@
         <div id="label-container"><p>o awen, ona li pali...</p></div>
       </div>
 
-      <div class="footer">
+      <div class="footer tokipona">
         <p>kala pona Tonyu li pali e ilo ni kepeken ilo sona <a href="https://teachablemachine.withgoogle.com/" target="_blank">TeachableMachine pi kulupu Google.</a></p>
         <p>sona pi ilo ni li tan linja FairfaxPona, linja waso lili, nasin nanpa, nasin sitelen pu, linja Nishiki Teki, sitelen seli kiwen. sina ken lukin e linja ale lon <a href="https://docs.google.com/spreadsheets/d/1xwgTAxwgn4ZAc4DBnHte0cqta1aaxe112Wh1rv9w5Yk/htmlview?gid=1195574771" target="_blank">lipu ni.</a></p>
         <p>sina wile lukin e nasin pali la o tawa <a href="https://github.com/bucketfish/ilo-like" target="_blank">tomo Github.</a></p>
         <p>sina wile kepeken sona pi ilo ni la o tawa <a href="https://teachablemachine.withgoogle.com/models/73FVn0D9A/" target="_blank">ilo lon lipu TeachableMachine.</a></p>
-        <p>sitelen pona lon lipu ni li kepeken linja sike.</p>
+        <p>sitelen pona lon lipu ni li kepeken linja sike. sitelen Lasina lon lipu ni li kepeken linja Roboto.</p>
+      </div>
 
+      <div class="footer english hide">
+        <p>kala pona Tonyu made this website using <a href="https://teachablemachine.withgoogle.com/" target="_blank">Google's TeachableMachine.</a></p>
+        <p>the data used to train this is from the following fonts: FairfaxPona, linja waso lili, nasin nanpa, nasin sitelen pu, nishiki teki, and sitelen seli kiwen. you can <a href="https://docs.google.com/spreadsheets/d/1xwgTAxwgn4ZAc4DBnHte0cqta1aaxe112Wh1rv9w5Yk/htmlview?gid=1195574771" target="_blank">find the fonts here.</a></p>
+        <p>you can find the source code on <a href="https://github.com/bucketfish/ilo-like" target="_blank">Github.</a></p>
+        <p>the model used can be found on <a href="https://teachablemachine.withgoogle.com/models/73FVn0D9A/" target="_blank">TeachableMachine.</a></p>
+        <p>the font used to display sitelen pona on this page is linja sike, and the font used to display latin characters is Roboto.</p>
       </div>
 
 
@@ -59,9 +98,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
-    <script src="script.js" type="text/javascript">
-
-    </script>
+    <script src="script.js" type="text/javascript"></script>
 
 
   </body>
