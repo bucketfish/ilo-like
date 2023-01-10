@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap');
+
+
+:root {
+  --orange: #FFC9B5;
+  --pink: #F7B1AB;
+  --brown: #D8AA96;
+  --purple: #807182;
+  --gray: #C7D3BF;
+}
+
+@font-face {
+    font-family: "linja sike";
+    src: url("linja-sike-5.otf");
+}
+
+html {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: var(--gray);
+  padding: 0;
+  margin: 0;
+}
+
+* {
+
+  font-family: 'Roboto', sans-serif;
+
+}
+
+h1, h2, h3 {
+  margin: 0;
+}
+
+h1 {
+  font-size: 3em;
+}
+
+p {
+  font-size: 1.1em;
+}
+
+a {
+  color: var(--purple);
+}
+
+a:hover {
+  background-color: var(--pink);
+  color: white;
+}
+
+.tp {
+  font-family: "linja sike";
+  margin: 0;
+}
+
+.header, .footer {
+  padding: 50px 30px 30px;
+  text-align: center;
+}
+
+.contain {
+  display: flex;
+  margin: 0 auto;
+  width: 80%;
+  justify-content: space-evenly;
+
+}
+
+.center {
+  text-align: center;
+}
+
+#canvas {
+  aspect-ratio: 1 / 1;
+  width: 256px;
+  /* height: 90%; */
+  /* height: 100%; */
+  /* background-color:  */
+  border: 5px solid var(--purple);
+  border-radius: 10px;
+  /* margin-top: -50px; */
+}
+
+#draw .nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#draw .clear {
+  border: none;
+  background-color: var(--purple);
+  font-size: 1em;
+  color: white;
+  border-radius: 10px;
+  padding: 5px 10px;
+}
+
+#draw .clear:hover {
+  background-color: var(--pink);
+
+}
+
+
+#label-container {
+  width: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+#label-container div {
+  width: 33%;
+}
+
+#label-container div .tp {
+  font-size: 3em;
+}
+
+#label-container div p {
+  margin: 0;
+}
