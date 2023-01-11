@@ -221,7 +221,6 @@ async function predict() {
       // subtitle text (name: 0.00%)
       var classPrediction = thename + ": " + (prediction[i].probability * 100).toFixed(1) + "%";
 
-
       // add the symbol too
       labelContainer.childNodes[i].innerHTML = '<p class="tp">' + thename + '</p><p>' + classPrediction + '</p>'
 
